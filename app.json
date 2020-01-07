@@ -1,14 +1,20 @@
 {
   "expo": {
-    "name": "contest_mobile",
-    "slug": "contest_mobile",
+    "name": " BrigadaUN",
+    "slug": "Brigada_UN",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
+    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
+    "ios": {
+      "bundleIdentifier": "com.yourcompany.yourappname"
+    },
+    "android": {
+      "package": "com.yourcompany.yourappname"
+    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -26,5 +32,6 @@
     "ios": {
       "supportsTablet": true
     }
+  
   }
 }
