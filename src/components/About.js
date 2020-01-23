@@ -7,7 +7,7 @@ import {
     Button,
     Vibration,
     Alert,
-    TouchableOpacity,
+    TouchableOpacity
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import * as Permissions from "expo-permissions";
@@ -20,19 +20,18 @@ import {
     fillCode,
     fillCategory,
     fillDescription,
-    fillInfo,
+    fillInfo
 } from "../actions/index";
 import _ from "lodash";
 import fb from "../routes/ConfigFire";
 import NotificationContainer from "./NotificationContainer";
-import * as Location from 'expo-location'
+import * as Location from "expo-location";
 
 function About() {
     const infoUser = useSelector(state => state.info);
-    const brigada = useSelector(state => state.brigada); //Variable que controlará la visibilidad de la notificación
     const caso = useSelector(state => state.case);
     const [sound, setSound] = useState(null);
-    const [location, setLocation] = useState(null)
+    const [location, setLocation] = useState(null);
     const dispatch = useDispatch();
     let currentUser = firebase
         .auth()
@@ -52,7 +51,7 @@ function About() {
         initializer();
         register();
         this.listener = Notifications.addListener(listen);
-     
+
         Audio.setAudioModeAsync({
             staysActiveInBackground: true,
             allowsRecordingIOS: false,
@@ -60,38 +59,42 @@ function About() {
             playsInSilentModeIOS: true,
             interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
             playThroughEarpieceAndroid: false,
-            shouldDuckAndroid: true,
+            shouldDuckAndroid: true
         });
-       getPermissionsAsync()
-       
+        getPermissionsAsync();
+
         return () => {
             console.log("Unmounted About");
             this.listener.remove(); // OJO ACÁ CUANDO HAGAMOS MÚLTIPLES PESTAÑAS
-         
         };
     }, []);
 
-    const getPermissionsAsync = async() => {
-        let {status} = await Permissions.askAsync(Permissions.LOCATION)
-        if (status !== "granted"){
-            alert("No permissions")
-        }else{
-            console.log("Permission granted!")
+    const getPermissionsAsync = async () => {
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== "granted") {
+            alert("No permissions");
+        } else {
+            console.log("Permission granted!");
         }
-        getLocationAsync()
-
-      
-    }
-    const getLocationAsync = () =>{
-        Location.watchPositionAsync({
-            enableHighAccuracy: false,
-            timeInterval: 30000,
-            distanceInterval: 0
-        }, location => {
-            setLocation(location)
-            fb.updateCoords(location.coords.latitude, location.coords.longitude, currentUser)
-        })
-    }
+        getLocationAsync();
+    };
+    const getLocationAsync = () => {
+        Location.watchPositionAsync(
+            {
+                enableHighAccuracy: false,
+                timeInterval: 30000,
+                distanceInterval: 0
+            },
+            location => {
+                setLocation(location);
+                fb.updateCoords(
+                    location.coords.latitude,
+                    location.coords.longitude,
+                    currentUser
+                );
+            }
+        );
+    };
 
     function initializer() {
         // When component mounts, there will be a listener for notif sent
@@ -125,52 +128,59 @@ function About() {
         console.log(origin, data);
 
         if (origin === "received") {
-            Vibration.vibrate(10000);
-            try {
-                const {
-                    sound: soundObject,
-                    status,
-                } = await Audio.Sound.createAsync(
-                    {
-                        uri:
-                            "https://firebasestorage.googleapis.com/v0/b/brigadaun.appspot.com/o/audios%2Falarm.wav?alt=media&token=a2c80767-bae0-47b8-8dae-3b1a7af590df",
-                    },
-                    { shouldPlay: true }
-                );
-                setSound(soundObject);
-            } catch (error) {
-                console.log(error);
+            if (data.id !== "1") {
+                Vibration.vibrate(10000);
+                try {
+                    const {
+                        sound: soundObject,
+                        status
+                    } = await Audio.Sound.createAsync(
+                        {
+                            uri:
+                                "https://firebasestorage.googleapis.com/v0/b/brigadaun.appspot.com/o/audios%2Falarm.wav?alt=media&token=a2c80767-bae0-47b8-8dae-3b1a7af590df"
+                        },
+                        { shouldPlay: true }
+                    );
+                    setSound(soundObject);
+                } catch (error) {
+                    console.log(error);
+                }
+
+                fb.setCustomRejectCause(currentUser);
+                firebase
+                    .database()
+                    .ref("Users/" + currentUser)
+                    .once("value", snapshot => {
+                        const userInfo = snapshot.val();
+                        const notifs = snapshot.val().receivedNotif + 1; // aumentar notificaciones recibidas
+                        if (!userInfo.expired) {
+                            firebase
+                                .database()
+                                .ref(
+                                    "Casos/" +
+                                        currentUser +
+                                        userInfo.receivedNotif
+                                ) // Para updatear la variable de Redux de caso
+                                .once("value", snapshot => {
+                                    const caseInfo = snapshot.val();
+                                    dispatch(fillPlace(caseInfo.lugar));
+                                    dispatch(fillCode(caseInfo.codigo));
+                                    dispatch(
+                                        fillDescription(caseInfo.descripcion)
+                                    );
+                                    dispatch(fillCategory(caseInfo.categoria));
+                                });
+                            firebase
+                                .database()
+                                .ref("Users/" + currentUser)
+                                .update({ receivedNotif: notifs, notif: true });
+                            // se updatea +1
+                        }
+                    });
+            } else {
+                Vibration.vibrate(3000);
+                alert(data.name);
             }
-
-            fb.setCustomRejectCause(currentUser);
-            firebase
-                .database()
-                .ref("Users/" + currentUser)
-                .once("value", snapshot => {
-                    const userInfo = snapshot.val();
-                    const notifs = snapshot.val().receivedNotif + 1; // aumentar notificaciones recibidas
-
-                    firebase
-                        .database()
-                        .ref("Casos/" + currentUser + userInfo.receivedNotif) // Para updatear la variable de Redux de caso
-                        .once("value", snapshot => {
-                            const caseInfo = snapshot.val();
-                            dispatch(fillPlace(caseInfo.lugar));
-                            dispatch(fillCode(caseInfo.codigo));
-                            dispatch(fillDescription(caseInfo.descripcion));
-                            dispatch(fillCategory(caseInfo.categoria));
-                        });
-                    firebase
-                        .database()
-                        .ref("Users/" + currentUser)
-                        .update({ receivedNotif: notifs });
-                    // se updatea +1
-                });
-
-            firebase
-                .database()
-                .ref("Users/" + currentUser)
-                .update({ notif: true });
         }
     };
 
@@ -197,7 +207,7 @@ function About() {
 
     return (
         <View style={{ flex: 1 }}>
-            {brigada ? (
+            {infoUser.notif ? (
                 <NotificationContainer
                     codigo={caso.codigo}
                     lugarEmergencia={caso.lugarEmergencia}
