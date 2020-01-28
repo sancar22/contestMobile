@@ -89,6 +89,15 @@ class Firebase {
             });
     }
 
+    updateAdditionalInfo(val, currentUser, infoUser) {
+        firebase
+            .database()
+            .ref(
+                "Casos/" + currentUser + (infoUser.receivedNotif - 1).toString()
+            )
+            .update({ descBrigadista: val });
+    }
+
     handleAcceptCase(currentUser) {
         firebase
             .database()
@@ -155,6 +164,144 @@ class Firebase {
                 "Casos/" + currentUser + (infoUser.receivedNotif - 1).toString()
             )
             .update({ camilla: true });
+    }
+    requestPol(currentUser, infoUser) {
+        firebase
+            .database()
+            .ref(
+                "Casos/" + currentUser + (infoUser.receivedNotif - 1).toString()
+            )
+            .update({ policia: true });
+    }
+    requestApoyo(currentUser, infoUser) {
+        firebase
+            .database()
+            .ref(
+                "Casos/" + currentUser + (infoUser.receivedNotif - 1).toString()
+            )
+            .update({ apoyo: true });
+    }
+    requestBom(currentUser, infoUser) {
+        firebase
+            .database()
+            .ref(
+                "Casos/" + currentUser + (infoUser.receivedNotif - 1).toString()
+            )
+            .update({ bombero: true });
+    }
+    requestAmb(currentUser, infoUser) {
+        firebase
+            .database()
+            .ref(
+                "Casos/" + currentUser + (infoUser.receivedNotif - 1).toString()
+            )
+            .update({ ambulancia: true });
+    }
+    async uploadCaseImages1(uri, imageName, currentUser, infoUser) {
+        const response = await fetch(uri);
+        const blob = await response.blob();
+
+        let ref = firebase
+            .storage()
+            .ref()
+            .child(
+                "caseImages/" +
+                    currentUser +
+                    "/" +
+                    (infoUser.receivedNotif - 1).toString() +
+                    "/" +
+                    imageName
+            )
+            .put(blob);
+        ref.on(
+            "state_changed",
+            snapshot => {
+                // progrss function ....
+            },
+            error => {
+                // error function ....
+                console.log(error);
+            },
+            () => {
+                // complete function ....
+                firebase
+                    .storage()
+                    .ref("caseImages/")
+                    .child(
+                        currentUser +
+                            "/" +
+                            (infoUser.receivedNotif - 1).toString() +
+                            "/" +
+                            imageName
+                    )
+                    .getDownloadURL()
+                    .then(url => {
+                        firebase
+                            .database()
+                            .ref(
+                                "Casos/" +
+                                    currentUser +
+                                    (infoUser.receivedNotif - 1).toString()
+                            )
+                            .update({
+                                image1: url
+                            });
+                    });
+            }
+        );
+    }
+    async uploadCaseImages2(uri, imageName, currentUser, infoUser) {
+        const response = await fetch(uri);
+        const blob = await response.blob();
+
+        let ref = firebase
+            .storage()
+            .ref()
+            .child(
+                "caseImages/" +
+                    currentUser +
+                    "/" +
+                    (infoUser.receivedNotif - 1).toString() +
+                    "/" +
+                    imageName
+            )
+            .put(blob);
+        ref.on(
+            "state_changed",
+            snapshot => {
+                // progrss function ....
+            },
+            error => {
+                // error function ....
+                console.log(error);
+            },
+            () => {
+                // complete function ....
+                firebase
+                    .storage()
+                    .ref("caseImages/")
+                    .child(
+                        currentUser +
+                            "/" +
+                            (infoUser.receivedNotif - 1).toString() +
+                            "/" +
+                            imageName
+                    )
+                    .getDownloadURL()
+                    .then(url => {
+                        firebase
+                            .database()
+                            .ref(
+                                "Casos/" +
+                                    currentUser +
+                                    (infoUser.receivedNotif - 1).toString()
+                            )
+                            .update({
+                                image2: url
+                            });
+                    });
+            }
+        );
     }
     closeCase(currentUser) {
         Number.prototype.padLeft = function(base, chr) {
