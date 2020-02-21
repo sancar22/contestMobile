@@ -39,7 +39,7 @@ function HelpContainer(props) {
                         fontSize: 20
                     }}
                 >
-                    Apoyo a {props.nombre + " " + props.apellido}
+                    Helping: {props.nombre + " " + props.apellido}
                 </Text>
                 <View style={styles.caseContainer}>
                     <Text
@@ -50,7 +50,7 @@ function HelpContainer(props) {
                                 : calcHeight(2)
                         }}
                     >
-                        Código:
+                        Code:
                     </Text>
                     <View
                         style={{
@@ -73,7 +73,7 @@ function HelpContainer(props) {
                             paddingTop: calcHeight(1.5)
                         }}
                     >
-                        Lugar Emergencia:
+                        Place of Emergency:
                     </Text>
                     <View
                         style={{
@@ -96,7 +96,7 @@ function HelpContainer(props) {
                             paddingTop: calcHeight(1.5)
                         }}
                     >
-                        Categoría:
+                        Category:
                     </Text>
                     <View
                         style={{
@@ -119,7 +119,7 @@ function HelpContainer(props) {
                             paddingTop: calcHeight(1.5)
                         }}
                     >
-                        Descripción:
+                        Description:
                     </Text>
                     <View
                         style={{
@@ -162,7 +162,7 @@ function HelpContainer(props) {
                                 }}
                                 onPress={props.rejectCase}
                             >
-                                <Text style={styles.button}>RECHAZAR</Text>
+                                <Text style={styles.button}>REJECT</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
@@ -172,7 +172,7 @@ function HelpContainer(props) {
                                 }}
                                 onPress={props.acceptCase}
                             >
-                                <Text style={styles.button}>ACEPTAR</Text>
+                                <Text style={styles.button}>ACCEPT</Text>
                             </TouchableOpacity>
                         </View>
                     )}

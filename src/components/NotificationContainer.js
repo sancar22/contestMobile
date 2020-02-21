@@ -40,7 +40,7 @@ function NotificationContainer(props) {
                                 : calcHeight(2)
                         }}
                     >
-                        Código:
+                        Code:
                     </Text>
                     <View
                         style={{
@@ -63,7 +63,7 @@ function NotificationContainer(props) {
                             paddingTop: calcHeight(1.5)
                         }}
                     >
-                        Lugar Emergencia:
+                        Place of Emergency:
                     </Text>
                     <View
                         style={{
@@ -86,7 +86,7 @@ function NotificationContainer(props) {
                             paddingTop: calcHeight(1.5)
                         }}
                     >
-                        Categoría:
+                        Category:
                     </Text>
                     <View
                         style={{
@@ -109,7 +109,7 @@ function NotificationContainer(props) {
                             paddingTop: calcHeight(1.5)
                         }}
                     >
-                        Descripción:
+                        Description:
                     </Text>
                     <View
                         style={{
@@ -152,7 +152,7 @@ function NotificationContainer(props) {
                                 }}
                                 onPress={props.rejectCase}
                             >
-                                <Text style={styles.button}>RECHAZAR</Text>
+                                <Text style={styles.button}>REJECT</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
@@ -162,7 +162,7 @@ function NotificationContainer(props) {
                                 }}
                                 onPress={props.acceptCase}
                             >
-                                <Text style={styles.button}>ACEPTAR</Text>
+                                <Text style={styles.button}>ACCEPT</Text>
                             </TouchableOpacity>
                         </View>
                     ) : (
@@ -173,7 +173,7 @@ function NotificationContainer(props) {
                                     top: calcHeight(5)
                                 }}
                             >
-                                Tiempo transcurrido:
+                                Elapsed Time:
                             </Text>
                             <View
                                 style={{

@@ -111,17 +111,17 @@ function Case3() {
     };
     const confApoyo = () => {
         Alert.alert(
-            "Solicitud de Apoyo",
-            "¿Está seguro que desea pedir apoyo de otros brigadistas?",
-            [{ text: "NO" }, { text: "SÍ", onPress: changeDialogueSeen }],
+            "Help Request",
+            "¿Are you sure you want to ask for other brigader's assistance?",
+            [{ text: "NO" }, { text: "YES", onPress: changeDialogueSeen }],
             { cancelable: false }
         );
     };
     const confAmbulancia = () => {
         Alert.alert(
-            "Solicitud de Apoyo",
-            "¿Está seguro que desea pedir una ambulancia?",
-            [{ text: "NO" }, { text: "SÍ", onPress: ambulancia }],
+            "Help Request",
+            "¿Are you sure you want to ask for an ambulance?",
+            [{ text: "NO" }, { text: "YES", onPress: ambulancia }],
             { cancelable: false }
         );
     };
@@ -206,10 +206,10 @@ function Case3() {
                 pushWeb2(apo, parsedInputText);
                 setDialogueSeen(false);
             } else {
-                alert("Coloque un número mayor a cero.");
+                alert("Enter a number greater than zero.");
             }
         } else {
-            alert("No ingresó un número.");
+            alert("You didn't enter a number.");
         }
     };
     const policia = () => {
@@ -308,7 +308,7 @@ function Case3() {
                     fontWeight: "bold"
                 }}
             >
-                Fotos del Caso
+                Case Photos
             </Text>
             <View style={styles.photoContainer}>
                 <TouchableOpacity onPress={handlePress1}>
@@ -332,7 +332,7 @@ function Case3() {
                     />
                 </TouchableOpacity>
             </View>
-            <Text style={styles.text}>Recursos Disponibles</Text>
+            <Text style={styles.text}>Available Resources</Text>
             <View style={{ ...styles.photoContainer }}>
                 <TouchableOpacity onPress={confAmbulancia}>
                     <Image
@@ -387,7 +387,7 @@ function Case3() {
                     />
                 </TouchableOpacity>
             </View>
-            <Text style={styles.text}>Apoyos Externos Disponibles</Text>
+            <Text style={styles.text}>Available External Help</Text>
             <View style={{ ...styles.photoContainer }}>
                 <TouchableOpacity onPress={confPolicia}>
                     <Image

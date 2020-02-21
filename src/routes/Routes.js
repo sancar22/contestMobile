@@ -43,7 +43,7 @@ function Routes() {
                     }}
                     headerLayoutPreset="center"
                 >
-                    <Scene key="tab1" title="Info Caso">
+                    <Scene key="tab1" title="Case Info.">
                         <Scene
                             key="caso"
                             component={Case2}
@@ -51,7 +51,7 @@ function Routes() {
                             initial
                         />
                     </Scene>
-                    <Scene key="tab2" title="Apoyos">
+                    <Scene key="tab2" title="Help">
                         <Scene
                             key="caso"
                             component={Case3}
@@ -59,7 +59,7 @@ function Routes() {
                             initial
                         />
                     </Scene>
-                    <Scene key="tab3" title="Resumen">
+                    <Scene key="tab3" title="Summary">
                         <Scene
                             key="caso"
                             component={Case}

@@ -9,7 +9,7 @@ import {
     TextInput,
     KeyboardAvoidingView,
     TouchableOpacity,
-    Image,
+    Image
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import Animated, { Easing } from "react-native-reanimated";
@@ -31,7 +31,7 @@ const {
     timing,
     clockRunning,
     interpolate,
-    Extrapolate,
+    Extrapolate
 } = Animated;
 
 function runTiming(clock, value, dest) {
@@ -39,13 +39,13 @@ function runTiming(clock, value, dest) {
         finished: new Value(0),
         position: new Value(0),
         time: new Value(0),
-        frameTime: new Value(0),
+        frameTime: new Value(0)
     };
 
     const config = {
         duration: 1000,
         toValue: new Value(0),
-        easing: Easing.inOut(Easing.ease),
+        easing: Easing.inOut(Easing.ease)
     };
 
     return block([
@@ -56,11 +56,11 @@ function runTiming(clock, value, dest) {
             set(state.frameTime, 0),
             set(config.toValue, 0),
             set(config.toValue, dest),
-            startClock(clock),
+            startClock(clock)
         ]),
         timing(clock, state, config),
         cond(state.finished, debug("stop clock", stopClock(clock))),
-        state.position,
+        state.position
     ]);
 }
 
@@ -72,40 +72,40 @@ const onStateChange = event([
                 cond(
                     eq(state, State.END),
                     set(buttonOpacity, runTiming(new Clock(), 1, 0))
-                ), // once Button is done being clicked
-            ]),
-    },
+                ) // once Button is done being clicked
+            ])
+    }
 ]);
 
 const buttonY = interpolate(buttonOpacity, {
     inputRange: [0, 1],
     outputRange: [100, 0],
-    extrapolate: Extrapolate.CLAMP,
+    extrapolate: Extrapolate.CLAMP
 });
 const bgY = interpolate(buttonOpacity, {
     inputRange: [0, 1],
     outputRange: [-height / 3 - 50, 0],
-    extrapolate: Extrapolate.CLAMP,
+    extrapolate: Extrapolate.CLAMP
 });
 const textInputZindex = interpolate(buttonOpacity, {
     inputRange: [0, 1],
     outputRange: [1, -1],
-    extrapolate: Extrapolate.CLAMP,
+    extrapolate: Extrapolate.CLAMP
 });
 const textInputY = interpolate(buttonOpacity, {
     inputRange: [0, 1],
     outputRange: [0, 100],
-    extrapolate: Extrapolate.CLAMP,
+    extrapolate: Extrapolate.CLAMP
 });
 const textInputOpacity = interpolate(buttonOpacity, {
     inputRange: [0, 1],
     outputRange: [1, 0],
-    extrapolate: Extrapolate.CLAMP,
+    extrapolate: Extrapolate.CLAMP
 });
 const rotateCross = interpolate(buttonOpacity, {
     inputRange: [0, 1],
     outputRange: [180, 360],
-    extrapolate: Extrapolate.CLAMP,
+    extrapolate: Extrapolate.CLAMP
 });
 
 function SignInC(props) {
@@ -116,16 +116,16 @@ function SignInC(props) {
                     cond(
                         eq(state, State.END),
                         set(buttonOpacity, runTiming(new Clock(), 0, 1))
-                    ), // once Button is done being clicked
-                ]),
-        },
+                    ) // once Button is done being clicked
+                ])
+        }
     ]);
     return (
         <KeyboardAvoidingView
             style={{
                 flex: 1,
                 backgroundColor: "white",
-                justifyContent: "flex-end",
+                justifyContent: "flex-end"
             }}
             behavior="padding"
             enabled
@@ -133,7 +133,7 @@ function SignInC(props) {
             <Animated.View
                 style={{
                     ...StyleSheet.absoluteFill,
-                    transform: [{ translateY: bgY }],
+                    transform: [{ translateY: bgY }]
                 }}
             >
                 <Svg height={height + 50} width={width}>
@@ -164,11 +164,11 @@ function SignInC(props) {
                             style={{
                                 ...styles.button,
                                 opacity: buttonOpacity,
-                                transform: [{ translateY: buttonY }],
+                                transform: [{ translateY: buttonY }]
                             }}
                         >
                             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                                INGRESAR
+                                LOGIN
                             </Text>
                         </Animated.View>
                     </TapGestureHandler>
@@ -178,11 +178,11 @@ function SignInC(props) {
                         style={{
                             ...styles.button,
                             opacity: buttonOpacity,
-                            transform: [{ translateY: buttonY }],
+                            transform: [{ translateY: buttonY }]
                         }}
                     >
                         <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                            RESTABLECER CONTRASEÑA
+                            RECOVER PASSWORD
                         </Text>
                     </Animated.View>
                 </TouchableOpacity>
@@ -198,7 +198,7 @@ function SignInC(props) {
                         transform: [{ translateY: textInputY }],
                         backgroundColor: "#fff",
                         borderTopLeftRadius: 30,
-                        borderTopRightRadius: 30,
+                        borderTopRightRadius: 30
                     }}
                 >
                     <TapGestureHandler onHandlerStateChange={onCloseState}>
@@ -207,8 +207,8 @@ function SignInC(props) {
                                 style={{
                                     fontSize: 15,
                                     transform: [
-                                        { rotate: concat(rotateCross, "deg") },
-                                    ],
+                                        { rotate: concat(rotateCross, "deg") }
+                                    ]
                                 }}
                             >
                                 X
@@ -229,7 +229,7 @@ function SignInC(props) {
                             autoCorrect={false}
                             autoCapitalize="none"
                             secureTextEntry={true}
-                            placeholder="CONTRASEÑA"
+                            placeholder="PASSWORD"
                             style={styles.textInput}
                             placeholderTextColor="black"
                             onChangeText={pass => props.passwordHandler(pass)}
@@ -247,7 +247,7 @@ function SignInC(props) {
                     >
                         <Animated.View style={styles.button}>
                             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                                INGRESAR
+                                Login
                             </Text>
                         </Animated.View>
                     </TouchableOpacity>
@@ -271,13 +271,13 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 2, height: 2 },
         shadowColor: "black",
         shadowOpacity: 0.8,
-        elevation: 3,
+        elevation: 3
     },
     brigadaIcon: {
         position: "relative",
         flex: 1,
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "center"
     },
     closeButton: {
         height: 40,
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 2, height: 2 },
         shadowColor: "black",
         shadowOpacity: 0.8,
-        elevation: 3,
+        elevation: 3
     },
     textInput: {
         height: 50,
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         paddingLeft: 10,
         marginVertical: 5,
-        borderColor: "rgba(0,0,0,0.2)",
+        borderColor: "rgba(0,0,0,0.2)"
     },
     round: {
         borderRadius: 50,
@@ -309,6 +309,6 @@ const styles = StyleSheet.create({
         position: "absolute",
         flex: 1,
         width: 150,
-        height: 150,
-    },
+        height: 150
+    }
 });

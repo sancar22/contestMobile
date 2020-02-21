@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
     View,
     Image,
-    KeyboardAvoidingView,
+    KeyboardAvoidingView
 } from "react-native";
 
 class ForgotPassWord extends React.Component {
@@ -17,7 +17,7 @@ class ForgotPassWord extends React.Component {
         super(props);
 
         this.state = {
-            email: "",
+            email: ""
         };
         this.resetPass = this.resetPass.bind(this);
     }
@@ -74,7 +74,7 @@ class ForgotPassWord extends React.Component {
                     >
                         <View style={styles.button}>
                             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                                RESTABLECER CONTRASEÑA
+                                RECOVER PASSWORD
                             </Text>
                         </View>
                     </TouchableOpacity>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
-        justifyContent: "center",
+        justifyContent: "center"
     },
 
     textInput: {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         paddingLeft: 10,
         marginVertical: 5,
-        borderColor: "rgba(0,0,0,0.2)",
+        borderColor: "rgba(0,0,0,0.2)"
     },
     button: {
         backgroundColor: "white",
@@ -120,13 +120,13 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 2, height: 2 },
         shadowColor: "black",
         shadowOpacity: 0.8,
-        elevation: 3,
+        elevation: 3
     },
     brigadaIcon: {
         position: "relative",
         alignItems: "center",
         justifyContent: "center",
-        top: -90,
+        top: -90
     },
     round: {
         borderRadius: 50,
@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
         position: "absolute",
         flex: 1,
         width: 110,
-        height: 110,
-    },
+        height: 110
+    }
 });
 
 export default ForgotPassWord;

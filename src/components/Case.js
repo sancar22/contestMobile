@@ -65,10 +65,10 @@ function Case() {
 
     return (
         <View>
-            <Text style={styles.text}>Apoyos Brigadistas: </Text>
+            <Text style={styles.text}>Other Brigaders Assisting </Text>
 
             {checkBoxContainer.length > 0 && checkBoxContainer}
-            <Text style={styles.text}>Descripción Adicional</Text>
+            <Text style={styles.text}>Procedure</Text>
             <Textarea
                 containerStyle={styles.textareaContainer}
                 style={styles.textarea}
@@ -86,7 +86,7 @@ function Case() {
                 success
                 onPress={back}
             >
-                <Text>CASO ATENDIDO</Text>
+                <Text>CLOSE CASE</Text>
             </Button>
         </View>
     );

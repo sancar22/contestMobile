@@ -72,7 +72,7 @@ class Firebase {
                 alert(`Error en solicitud de ${objeto}. Vuelva a intentarlo.`);
             })
             .then(() => {
-                alert(`Objeto: ${objeto} solicitad@`);
+                alert(`Object: ${objeto} requested`);
             });
     }
 
@@ -104,7 +104,7 @@ class Firebase {
                 alert(`Error en solicitud de ${objeto}. Vuelva a intentarlo.`);
             })
             .then(() => {
-                alert(`Objeto: ${objeto} solicitad@`);
+                alert(`Object: ${objeto} requested`);
             });
     }
 
